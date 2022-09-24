@@ -9,5 +9,7 @@
          [disabled]="disabled"
          [attr.inputmode]="inputMode"
          [attr.autocapitalize]="autocapitalize"
-         autocomplete="one-time-code"/>
+         autocomplete="one-time-code"
+         (focus)="onFocus()"
+         (blur)="onBlur()"/>
 </span>

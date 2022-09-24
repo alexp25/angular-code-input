@@ -47,12 +47,14 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
   @Input() isCodeHidden !: boolean;
   @Input() isPrevFocusableAfterClearing !: boolean;
   @Input() isFocusingOnLastByClickIfFilled !: boolean;
-  @Input() code ?: string | number;
+  @Input() code?: string | number;
   @Input() disabled !: boolean;
-  @Input() autocapitalize ?: string;
+  @Input() autocapitalize?: string;
 
   @Output() readonly codeChanged = new EventEmitter<string>();
   @Output() readonly codeCompleted = new EventEmitter<string>();
+  @Output() readonly codeFocus = new EventEmitter<boolean>();
+  @Output() readonly codeBlur = new EventEmitter<boolean>();
 
   public placeholders: number[] = [];
 
@@ -149,6 +151,14 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
     }
 
     this.inputs[index].focus();
+  }
+
+  onFocus() {
+    this.codeFocus.emit(true);
+  }
+
+  onBlur() {
+    this.codeBlur.emit(true);
   }
 
   onClick(e: any): void {
@@ -450,6 +460,6 @@ export class CodeInputComponent implements AfterViewInit, OnInit, OnChanges, OnD
   }
 
   private isEmpty(value: any): boolean {
-    return  value === null || value === undefined || !value.toString().length;
+    return value === null || value === undefined || !value.toString().length;
   }
 }
